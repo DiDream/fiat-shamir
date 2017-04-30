@@ -5,4 +5,50 @@ html(lang='es')
         title Fiat-Shamir
         link(rel="stylesheet", href="css/styles.css", attr)
     body
-        .container
+        form.container(method="#" action="#")
+            
+            table.center.main-table
+                tr
+                    th(colspan="2")
+                        h1.first-shamir-name
+                            span(style="color: teal;") Fiat
+                            span(style="color: #333;") Shamir
+                tr
+                    td
+                        input(type="text" placeholder="p")
+                    td
+                        input(type="text" placeholder="q")
+                tr
+                    td Identificación secreta de A
+                    td
+                        input(type="text" placeholder="s")
+                tr
+                    td Identificación pública de A
+                    td
+                        .box
+                tr
+                    td Iteraciones
+                    td
+                        input(type="text" placeholder="i")
+                tr
+                    td(colspan="2")
+                        table.center#iterations
+                            tr
+                                td Compromiso secreto
+                                td
+                                    input(type="text" placeholder="x")
+                            tr
+                                td Testigo: A envia a B
+                                td
+                                    .box
+                            tr
+                                td Reto: B envia a A
+                                td
+                                    input(type="text" placeholder="e")
+                            tr
+                                td Respuesta: A envia a B
+                                td
+                                    .box
+                            tr
+                                td(colspan="2") verificacion
+                        input(type="submit" value="Verificar" class="btn btn-submit")

@@ -6,6 +6,74 @@
     <link rel="stylesheet" href="css/styles.css" attr>
   </head>
   <body>
-    <div class="container"></div>
+    <form class="container" method="#" action="#">
+      <table class="center main-table">
+        <tr>
+          <th colspan="2">
+            <h1 class="first-shamir-name"><span style="color: teal;">Fiat</span><span style="color: #333;">Shamir</span></h1>
+          </th>
+        </tr>
+        <tr>
+          <td>
+            <input type="text" placeholder="p">
+          </td>
+          <td>
+            <input type="text" placeholder="q">
+          </td>
+        </tr>
+        <tr>
+          <td>Identificación secreta de A</td>
+          <td>
+            <input type="text" placeholder="s">
+          </td>
+        </tr>
+        <tr>
+          <td>Identificación pública de A</td>
+          <td>
+            <div class="box"></div>
+          </td>
+        </tr>
+        <tr>
+          <td>Iteraciones</td>
+          <td>
+            <input type="text" placeholder="i">
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <table class="center" id="iterations">
+              <tr>
+                <td>Compromiso secreto</td>
+                <td>
+                  <input type="text" placeholder="x">
+                </td>
+              </tr>
+              <tr>
+                <td>Testigo: A envia a B</td>
+                <td>
+                  <div class="box"></div>
+                </td>
+              </tr>
+              <tr>
+                <td>Reto: B envia a A</td>
+                <td>
+                  <input type="text" placeholder="e">
+                </td>
+              </tr>
+              <tr>
+                <td>Respuesta: A envia a B</td>
+                <td>
+                  <div class="box"></div>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">verificacion</td>
+              </tr>
+            </table>
+            <input class="btn btn-submit" type="submit" value="Verificar">
+          </td>
+        </tr>
+      </table>
+    </form>
   </body>
 </html>
