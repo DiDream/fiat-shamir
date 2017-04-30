@@ -70,3 +70,49 @@ Number.prototype.isPrime = function(){
     // maybe == true si ha habido algun r == this-1 (-1)
     // maybe == false si todos todos los r's han sido UNOS
 }
+function iterations(a){
+    var res = '';
+    for(var i=0; i<a; i++){
+        res += `
+        <table class="center iteration" id="${i}-iteration">
+          <tr>
+            <td>Compromiso secreto</td>
+            <td>
+              <input type="text" placeholder="x" class="x-input">
+            </td>
+          </tr>
+          <tr>
+            <td>Testigo: A envia a B</td>
+            <td>
+              <div class="box">
+                <div class="box" class="a-value">a</div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Reto: B envia a A</td>
+            <td>
+              <input type="text" placeholder="e" class="e-input">
+            </td>
+          </tr>
+          <tr>
+            <td>Respuesta: A envia a B</td>
+            <td>
+              <div class="box">
+                <div class="box" class="y-value">y</div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">verificacion</td>
+          </tr>
+        </table>`
+    }
+    $('#iterations').html(res);
+}
+function fiatShamir(){
+    var p = $('#p-input');
+    var q = $('#q-input');
+    var s = $('#s-input');
+    var i = $('#i-input');
+}

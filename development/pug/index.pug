@@ -5,7 +5,7 @@ html(lang='es')
         title Fiat-Shamir
         link(rel="stylesheet", href="css/styles.css", attr)
     body
-        form.container(method="#" action="#")
+        form.container(method="#" action="#" onsubmit="validation(event)")
             
             table.center.main-table
                 tr
@@ -15,41 +15,27 @@ html(lang='es')
                             span(style="color: #333;") Shamir
                 tr
                     td
-                        input(type="text" placeholder="p")
+                        input(type="text" placeholder="p" id="p-input" required="true")
                     td
-                        input(type="text" placeholder="q")
+                        input(type="text" placeholder="q" id="q-input")
                 tr
                     td Identificación secreta de A
                     td
-                        input(type="text" placeholder="s")
+                        input(type="text" placeholder="s" id="s-input")
                 tr
                     td Identificación pública de A
                     td
-                        .box
+                        .box#v-value
+                            | v
                 tr
-                    td Iteraciones
-                    td
-                        input(type="text" placeholder="i")
+                    td(colspan="2") Iteraciones
+                        input(type="number" placeholder="i" id="i-input" onchange="iterations(this.value)")
+                        #iterations
                 tr
-                    td(colspan="2")
-                        table.center#iterations
-                            tr
-                                td Compromiso secreto
-                                td
-                                    input(type="text" placeholder="x")
-                            tr
-                                td Testigo: A envia a B
-                                td
-                                    .box
-                            tr
-                                td Reto: B envia a A
-                                td
-                                    input(type="text" placeholder="e")
-                            tr
-                                td Respuesta: A envia a B
-                                td
-                                    .box
-                            tr
-                                td(colspan="2") verificacion
-                        input(type="submit" value="Verificar" class="btn btn-submit")
+                    td.no-padding(colspan="2")
+                        input.center.block(type="submit" value="Verificar" class="btn btn-submit")
+
+        script(src="https://code.jquery.com/jquery-2.2.4.min.js"
+			  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+			  crossorigin="anonymous")
         script(src="js/main.js")

@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="css/styles.css" attr>
   </head>
   <body>
-    <form class="container" method="#" action="#">
+    <form class="container" method="#" action="#" onsubmit="validation(event)">
       <table class="center main-table">
         <tr>
           <th colspan="2">
@@ -15,66 +15,38 @@
         </tr>
         <tr>
           <td>
-            <input type="text" placeholder="p">
+            <input type="text" placeholder="p" id="p-input" required="true">
           </td>
           <td>
-            <input type="text" placeholder="q">
+            <input type="text" placeholder="q" id="q-input">
           </td>
         </tr>
         <tr>
           <td>Identificación secreta de A</td>
           <td>
-            <input type="text" placeholder="s">
+            <input type="text" placeholder="s" id="s-input">
           </td>
         </tr>
         <tr>
           <td>Identificación pública de A</td>
           <td>
-            <div class="box"></div>
+            <div class="box" id="v-value">v</div>
           </td>
         </tr>
         <tr>
-          <td>Iteraciones</td>
-          <td>
-            <input type="text" placeholder="i">
+          <td colspan="2">Iteraciones
+            <input type="number" placeholder="i" id="i-input" onchange="iterations(this.value)">
+            <div id="iterations"></div>
           </td>
         </tr>
         <tr>
-          <td colspan="2">
-            <table class="center" id="iterations">
-              <tr>
-                <td>Compromiso secreto</td>
-                <td>
-                  <input type="text" placeholder="x">
-                </td>
-              </tr>
-              <tr>
-                <td>Testigo: A envia a B</td>
-                <td>
-                  <div class="box"></div>
-                </td>
-              </tr>
-              <tr>
-                <td>Reto: B envia a A</td>
-                <td>
-                  <input type="text" placeholder="e">
-                </td>
-              </tr>
-              <tr>
-                <td>Respuesta: A envia a B</td>
-                <td>
-                  <div class="box"></div>
-                </td>
-              </tr>
-              <tr>
-                <td colspan="2">verificacion</td>
-              </tr>
-            </table>
-            <input class="btn btn-submit" type="submit" value="Verificar">
+          <td class="no-padding" colspan="2">
+            <input class="center block btn btn-submit" type="submit" value="Verificar">
           </td>
         </tr>
       </table>
     </form>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <script src="js/main.js"></script>
   </body>
 </html>

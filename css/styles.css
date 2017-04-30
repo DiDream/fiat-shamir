@@ -9,9 +9,19 @@
 .center {
   margin: 0 auto; }
 
+.text-center {
+  text-align: center; }
+
+.no-padding {
+  padding: 0px;
+  border: 0px; }
+
 table {
   border-collapse: collapse;
   text-align: center; }
+  table.iteration {
+    margin-top: 10px;
+    margin-bottom: 10px; }
   table h1 {
     font-size: 20px;
     text-transform: uppercase;
@@ -20,7 +30,8 @@ table {
     border: 1px solid #DADADA; }
     table tr td, table tr th {
       padding: 10px 20px;
-      width: 200px; }
+      width: 200px;
+      border-collapse: collapse; }
 
 .first-shamir-name span {
   display: inline-block; }
@@ -28,12 +39,20 @@ table {
 .first-shamir-name span::first-letter {
   font-size: 25px; }
 
-#iterations td {
-  width: 150px; }
+#iterations {
+  height: 300px;
+  overflow-y: auto; }
+  #iterations td {
+    width: 150px; }
 
 input[type="text"], .box {
   width: 40px;
   height: 40px; }
+
+.box {
+  display: inline-block;
+  line-height: 40px;
+  font-size: 25px; }
 
 input[type="text"] {
   text-align: center;
