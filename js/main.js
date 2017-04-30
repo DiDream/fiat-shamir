@@ -26,6 +26,23 @@ function fastExponentiation(base, b, m){ //  base=> base de exponent, b=> expone
     // return {logs, value: x};
     return x;
 }
+function mcd(a,b){
+    while(a != b){
+        if(a > b) a-=b;
+        else b-=a;
+    }
+    return a;
+}
+Number.prototype.isCoprime = function(number){
+    return mcd(this, number) == 1 ;
+}
+Number.prototype.coprimeNumbers = function() {
+    var coprimes = [1];
+    for(var i=2; i<this; i++){
+        if(this.isCoprime(i)) coprimes.push(i);
+    }
+    return coprimes;
+}
 Number.prototype.isPrime = function(){
     for(var i=0; i<PRIME_NUMBERS.length; i++){
         //== el numero es primo STOP
