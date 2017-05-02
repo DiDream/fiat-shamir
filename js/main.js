@@ -4,6 +4,9 @@ var N = 100;
 Number.prototype.isOdd= function(){
     return this%2 != 0;
 }
+String.prototype.toNumber = function(){
+    return Number(this);
+}
 function fastExponentiation(base, b, m){ //  base=> base de exponent, b=> exponente, m=> modulo
 
     var x = 1;
@@ -70,49 +73,174 @@ Number.prototype.isPrime = function(){
     // maybe == true si ha habido algun r == this-1 (-1)
     // maybe == false si todos todos los r's han sido UNOS
 }
-function iterations(a){
+// A REALIZAR
+// $('form').on('change','input',function(){
+//     $('.selected').removeClass('selected');
+//     $('input[type="submit"]').addClass('')
+//     // $( '.' + $(this).attr('id') ).addClass('selected');
+// });
+
+function iterationHTML(a){
     var res = '';
     for(var i=0; i<a; i++){
-        res += `
-        <table class="center iteration" id="${i}-iteration">
+
+        res += `<table class="iteration center" id="${i}-iteration">
           <tr>
-            <td>Compromiso secreto</td>
             <td>
-              <input type="text" placeholder="x" class="x-input">
-            </td>
-          </tr>
-          <tr>
-            <td>Testigo: A envia a B</td>
-            <td>
-              <div class="box">
-                <div class="box" class="a-value">a</div>
+              <div class="content">
+                <div class="text-over">Compromiso secreto de A</div>
+                <div class="center-v">0 <
+                  <input type="number" placeholder="x" class="x-input" min="1" max="${n-1 || ''}" required>
+                  < <span class="n-value">N</span>
+                </div>
               </div>
             </td>
           </tr>
           <tr>
-            <td>Reto: B envia a A</td>
             <td>
-              <input type="text" placeholder="e" class="e-input">
-            </td>
-          </tr>
-          <tr>
-            <td>Respuesta: A envia a B</td>
-            <td>
-              <div class="box">
-                <div class="box" class="y-value">y</div>
+              <div class="content">
+                <div class="text-over">Testigo: A envia a B</div>
+                <div class="center-v">
+                  <div class="value" id="a${i}-value">a</div>= x² % N
+                </div>
               </div>
             </td>
           </tr>
           <tr>
-            <td colspan="2">verificacion</td>
+            <td>
+              <div class="content">
+                <div class="text-over">Reto: B envía a A</div>
+                <div class="option-2 relative">
+                  <input class="e-input" id="e${i}-0" name="e${i}-input" type="radio" checked value="0" required="true">
+                  <label for="e${i}-0">e = 0</label>
+                </div>
+                <div class="option-2 relative">
+                  <input class="e-input" id="e${i}-1" name="e${i}-input" value="1" type="radio">
+                  <label for="e${i}-1">e = 1</label>
+                </div>
+              </div>
+            </td>
           </tr>
-        </table>`
+          <tr>
+            <td>
+              <div class="content">
+                <div class="text-over">Respuesta: A envia a B</div>
+                <div class="option-2 e${i}-0">
+                    <div class="equation left">
+                        <span class="y-value">y</span> = x % N
+                    </div>
+                </div>
+                <div class="option-2 e${i}-1">
+                    <div class="equation right">
+                        <span class="y-value">y</span> = (x * s) % N
+                    </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="content verification">
+                <div class="text-over">Verificacion de lo recibido</div>
+                <div class="option-2 e${i}-0">
+                    <div class="equation left">y² % N = a % N</div>
+                </div>
+                <div class="option-2 e${i}-1">
+                    <div class="equation right">
+                        y² % N = (a * v) % N
+                    </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>`;
     }
     $('#iterations').html(res);
+};
+(function(){
+    iterationHTML($('#i-input').val());
+})();
+var p,q,n;
+$('#p-input,#q-input').on('input',function(){
+    if($('#p-input').val()!='' && $('#q-input').val()!=''){
+        p = $('#p-input').val().toNumber();
+        q = $('#q-input').val().toNumber();
+        n = p*q;
+        // $('.n-value').text(n);
+        $('#s-input').attr({"max":n-1});
+        $('.x-input').attr({"max":n-1});
+    }
+    // }else {
+    //     $('.n-value').text('N');
+    // }
+
+});
+function renderize(values){
+    var {p,q,n,v,s,it} = values; //object destructuring
+    $('#n-value').text(`N=${n}`);
+    $('#v-value').text(`V=${v}`);
+    for(var i=0; i<it.length; i++){
+        var e = it[i].e;
+        $(`.e${i}-${e}`).addClass('selected')
+                        .find('.y-value')
+                            .addClass('value')
+                            .text(`y=${it[i].y}`);
+        $(`#a${i}-value`).text(`a=${it[i].a}`);
+    
+        $('.verification .selected .equation').addClass(it[i].isValid? 'valid': 'not-valid');
+    }
 }
-function fiatShamir(){
-    var p = $('#p-input');
-    var q = $('#q-input');
-    var s = $('#s-input');
-    var i = $('#i-input');
+function reset(){
+    $('.selected').removeClass('selected')
+                    .find('.value')
+                        .removeClass('value');
+    $('.equation').removeClass('valid not-valid');
+};
+function main(e){
+    e.preventDefault();
+    reset();
+    p = $('#p-input').val().toNumber();
+    q = $('#q-input').val().toNumber();
+    n = p*q;
+    var s = $('#s-input').val().toNumber();
+    var it = new Array($('#i-input').val().toNumber());
+    for(var i=0; i<it.length; i++){
+        var iteration = $(`#${i}-iteration`);
+        it[i] = {
+            x: iteration.find('.x-input').val().toNumber(),
+            e: iteration.find('.e-input:checked').val().toNumber()
+        }
+    }
+    var r = fiatShamir({p,q,n,s,it});
+    console.log(r);
+    renderize(r);
+}
+
+// values => {p: ,q: ,n: ,s: ,it:[{x: , e: }...]} Todos los valores tipo Number
+function fiatShamir(values){
+    var {p,q,n,s,it} = values; //object destructuring
+    var v = (s ** 2)% n;
+    values['v'] = v;
+    for(var i=0; i<it.length; i++){
+        var iter = it[i];
+        iter['a'] = (iter.x ** 2) %n;
+        if(iter.e == 0){
+            iter['y'] = iter.x % n;
+            iter['c'] = {
+                m2: iter.a % n
+            }
+        }else{
+            iter['y'] =(iter.x * s) % n;
+            iter['c'] = {
+                m2: (iter.a * v) % n
+            }
+        }
+        // c=> comprobacion
+        // m1 => miembro 1 de ecuacion
+        // m2 => miembro 2 de ecuacion
+
+        iter.c['m1'] = (iter.y ** 2) % n;
+        iter['isValid'] = iter.c.m1 == iter.c.m2;
+    }
+    return values;
 }

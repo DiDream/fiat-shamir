@@ -6,42 +6,54 @@
     <link rel="stylesheet" href="css/styles.css" attr>
   </head>
   <body>
-    <form class="container" method="#" action="#" onsubmit="validation(event)">
-      <table class="center main-table">
+    <form class="container" method="#" action="#" onsubmit="main(event)">
+      <table class="center">
         <tr>
-          <th colspan="2">
-            <h1 class="first-shamir-name"><span style="color: teal;">Fiat</span><span style="color: #333;">Shamir</span></h1>
+          <th>
+            <h1 class="fiat-shamir-name"><span style="color: teal;">Fiat</span><span style="color: #333;">Shamir</span></h1>
           </th>
         </tr>
         <tr>
           <td>
-            <input type="text" placeholder="p" id="p-input" required="true">
-          </td>
-          <td>
-            <input type="text" placeholder="q" id="q-input">
-          </td>
-        </tr>
-        <tr>
-          <td>Identificación secreta de A</td>
-          <td>
-            <input type="text" placeholder="s" id="s-input">
+            <div class="content">
+              <div class="text-over">Inicialización</div>
+              <div class="center-v">
+                <div class="value" id="n-value">N</div>=
+                <input type="number" placeholder="p" id="p-input" required="true">*
+                <input type="number" placeholder="q" id="q-input" required="true">
+              </div>
+            </div>
           </td>
         </tr>
         <tr>
-          <td>Identificación pública de A</td>
           <td>
-            <div class="box" id="v-value">v</div>
+            <div class="content">
+              <div class="text-over">Identificación secreta de A</div>
+              <div class="center-v">0 < 
+                <input type="number" placeholder="s" id="s-input" min="1" required="true"> < N
+              </div>
+            </div>
           </td>
         </tr>
         <tr>
-          <td colspan="2">Iteraciones
-            <input type="number" placeholder="i" id="i-input" onchange="iterations(this.value)">
+          <td>
+            <div class="content">
+              <div class="text-over">Identificacion publica de A</div>
+              <div class="center-v"> 
+                <div class="value" id="v-value">v</div>= S² % N
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="padding-10">Iteraciones
+            <input type="number" placeholder="i" id="i-input" min="1" onchange="iterationHTML(this.value)" value="1">
             <div id="iterations"></div>
           </td>
         </tr>
         <tr>
-          <td class="no-padding" colspan="2">
-            <input class="center block btn btn-submit" type="submit" value="Verificar">
+          <td>
+            <input class="btn btn-submit" type="submit" value="Verificar">
           </td>
         </tr>
       </table>

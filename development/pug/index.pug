@@ -5,35 +5,46 @@ html(lang='es')
         title Fiat-Shamir
         link(rel="stylesheet", href="css/styles.css", attr)
     body
-        form.container(method="#" action="#" onsubmit="validation(event)")
-            
-            table.center.main-table
+        form.container(method="#" action="#" onsubmit="main(event)")
+            table.center
                 tr
-                    th(colspan="2")
-                        h1.first-shamir-name
+                    th
+                        h1.fiat-shamir-name
                             span(style="color: teal;") Fiat
                             span(style="color: #333;") Shamir
                 tr
                     td
-                        input(type="text" placeholder="p" id="p-input" required="true")
-                    td
-                        input(type="text" placeholder="q" id="q-input")
+                        .content
+                            .text-over Inicialización
+                            .center-v
+                                .value#n-value N
+                                | =
+                                input(type="number" placeholder="p" id="p-input" required="true" )
+                                | *
+                                input(type="number" placeholder="q" id="q-input" required="true" )
                 tr
-                    td Identificación secreta de A
                     td
-                        input(type="text" placeholder="s" id="s-input")
+                        .content
+                            .text-over Identificación secreta de A
+                            .center-v
+                                | 0 < 
+                                input(type="number" placeholder="s" id="s-input" min="1" required="true" )
+                                |  < N
                 tr
-                    td Identificación pública de A
                     td
-                        .box#v-value
-                            | v
+                        .content
+                            .text-over Identificacion publica de A
+                            .center-v 
+                                .value#v-value v
+                                | = S² % N
                 tr
-                    td(colspan="2") Iteraciones
-                        input(type="number" placeholder="i" id="i-input" onchange="iterations(this.value)")
+                    td.padding-10
+                        | Iteraciones
+                        input(type="number" placeholder="i" id="i-input" min="1" onchange="iterationHTML(this.value)" value="1")
                         #iterations
                 tr
-                    td.no-padding(colspan="2")
-                        input.center.block(type="submit" value="Verificar" class="btn btn-submit")
+                    td
+                        input(type="submit" value="Verificar" class="btn btn-submit")
 
         script(src="https://code.jquery.com/jquery-2.2.4.min.js"
 			  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
