@@ -29,24 +29,27 @@ function fastExponentiation(base, b, m){ //  base=> base de exponent, b=> expone
     // return {logs, value: x};
     return x;
 }
-function mcd(a,b){
+function mcd(a,b){ //Solo para numeros enteros positivos
+    if(a<1 || b<1) return false;
     while(a != b){
         if(a > b) a-=b;
         else b-=a;
     }
     return a;
 }
-Number.prototype.isCoprime = function(number){
+Number.prototype.isCoprimeOf = function(number){
     return mcd(this, number) == 1 ;
 }
 Number.prototype.coprimeNumbers = function() {
     var coprimes = [1];
     for(var i=2; i<this; i++){
-        if(this.isCoprime(i)) coprimes.push(i);
+        if(this.isCoprimeOf(i)) coprimes.push(i);
     }
     return coprimes;
 }
 Number.prototype.isPrime = function(){
+    if(this===1) return true;
+
     for(var i=0; i<PRIME_NUMBERS.length; i++){
         //== el numero es primo STOP
         //% == 0 no es primo STOP
@@ -162,6 +165,13 @@ function iterationHTML(a){
 })();
 var p,q,n;
 $('#p-input,#q-input').on('input',function(){
+    
+    if(!$(this).val().toNumber().isPrime()) {
+        $(this)[0].setCustomValidity('Inserta un numero primo');
+        return false;
+    }else {
+        $(this)[0].setCustomValidity('');
+    }
     if($('#p-input').val()!='' && $('#q-input').val()!=''){
         p = $('#p-input').val().toNumber();
         q = $('#q-input').val().toNumber();
@@ -169,11 +179,21 @@ $('#p-input,#q-input').on('input',function(){
         // $('.n-value').text(n);
         $('#s-input').attr({"max":n-1});
         $('.x-input').attr({"max":n-1});
+    }else {
+        n = 0;
     }
     // }else {
     //     $('.n-value').text('N');
     // }
 
+});
+$('#s-input').on('input',function(){
+    if($(this).val().toNumber().isCoprimeOf(n)){
+        $(this)[0].setCustomValidity('');
+    }else{
+        $(this)[0].setCustomValidity(`Inserta un numero coprimo de ${n}`);
+        return false;
+    }
 });
 function renderize(values){
     var {p,q,n,v,s,it} = values; //object destructuring
@@ -186,7 +206,7 @@ function renderize(values){
                             .addClass('value')
                             .text(`y=${it[i].y}`);
         $(`#a${i}-value`).text(`a=${it[i].a}`);
-    
+
         $('.verification .selected .equation').addClass(it[i].isValid? 'valid': 'not-valid');
     }
 }
